@@ -1,0 +1,25 @@
+---
+- name: install vim
+  hosts: vmdemo
+  tasks:
+    - name: vim install
+      become: true
+      become_user: root
+      apt:
+        name: vim
+        state: latest
+
+- name: install google chrome
+  hosts: vmdemo
+  tasks:
+    - name: get_url download
+      become: true
+      become_user: root
+      get_url:
+        url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        dest: /tmp/google
+    - name: install google chrome
+      become: true
+      become_user: root
+      apt:
+        deb: /tmp/google/google-chrome-stable_current_amd64.deb 

@@ -1,0 +1,32 @@
+---
+- name: create group
+  hosts: vmdemo
+  become: true
+  become_user: root
+  tasks:
+    - name: does "groupA" exist
+      group:
+        name: groupA
+        state: present
+        gid: 12345
+
+    - name: does "groupB" exist
+      group:
+        name: groupB
+        state: present
+        gid: 54321
+
+    - name: create user
+      user:
+        name: user2
+        uid: 12121
+        password_lock: yes
+        groups:
+        - groupA
+        - groupB
+
+    - name: remove user
+      user:
+        name: user2
+        state: absent
+        remove: yes
